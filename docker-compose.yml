@@ -1,0 +1,62 @@
+version: "3.9"
+services:
+  server-app:
+    container_name: "server-app"
+    image: nginx:latest
+    restart: always
+    working_dir: /var/www/app
+    volumes:
+      - ./server-app:/var/www/app
+      - ./server-app/nginx:/etc/nginx/conf.d
+    stdin_open: true
+    tty: true
+    depends_on:
+      - php
+    links:
+      - php
+    ports:
+      - "5000:5000"
+
+  php:
+    container_name: "server-app-php"
+    build: .
+    restart: always
+    working_dir: /var/www/app
+    volumes:
+      - ./server-app/:/var/www/app
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: "server-app-postgres"
+    image: postgres:15
+    restart: always
+    volumes:
+        -   ./data-db:/var/lib/postgresql/data
+    environment:
+        POSTGRES_USER: contato@wilsoncastro.dev
+        POSTGRES_PASSWORD: wilsoncastro123
+        POSTGRES_DB: esferas
+    ports:
+        -   "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: "server-app-pgadmin4"
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: contato@wilsoncastro.dev
+      PGADMIN_DEFAULT_PASSWORD: wilsoncastro123
+
+# Comando para entrar no container server-app-php
+# docker exec -it server-app-php bash
+# Comando para executar dentro do container server-app-php
+# rm -rf node_modules
+# npm install
+# npm start
+
+# Comando para entrar no container client-app
+# docker exec -it client-app bash
