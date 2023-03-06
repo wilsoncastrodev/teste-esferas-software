@@ -17,6 +17,16 @@ services:
     ports:
       - "5000:5000"
 
+  client-app:
+    container_name: "client-app"
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./client-app/build:/usr/share/nginx/html
+      - ./client-app/nginx:/etc/nginx/conf.d
+    ports:
+      - "5500:5500"
+
   php:
     container_name: "server-app-php"
     build: .
