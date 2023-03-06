@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 
 const CustomerPage: FC = () => (
-    <div>Página de Clientes</div>
+    <Fragment>
+        <h3>Clientes</h3>
+    </Fragment>
 );
 
 export default CustomerPage;

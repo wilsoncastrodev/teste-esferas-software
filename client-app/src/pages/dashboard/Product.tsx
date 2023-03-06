@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 
 const ProductPage: FC = () => (
-    <div>Página de Produtos</div>
+    <Fragment>
+        <h3>Produtos</h3>
+    </Fragment>
 );
 
 export default ProductPage;

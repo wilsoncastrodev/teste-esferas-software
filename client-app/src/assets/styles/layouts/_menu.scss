@@ -1,0 +1,12 @@
+.menu-page {
+    align-items: center;
+    display: flex;
+
+    .list-group {
+        .list-group-item {
+            letter-spacing: 0.5px;
+            border: none;
+            background: none;
+        }
+    }
+}

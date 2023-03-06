@@ -1,1 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
+
+// FONTS
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+// BASE
+@import 'base/variables';
+@import 'base/global';
+
+// COMPONENTS
+@import 'components/typography';
+
+// LAYOUTS
+@import 'layouts/header';
+@import 'layouts/menu';

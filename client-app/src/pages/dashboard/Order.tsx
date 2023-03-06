@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 
 const OrderPage: FC = () => (
-    <div>Página de Pedidos</div>
+    <Fragment>
+        <h3>Pedidos</h3>
+    </Fragment>
 );
 
 export default OrderPage;
