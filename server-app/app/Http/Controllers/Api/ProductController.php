@@ -13,9 +13,9 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->get();
 
-        if ($products) {
+        if (!$products) {
             return $this->sendError($products, "Não há nenhum Produto cadastrado.");
         }
 

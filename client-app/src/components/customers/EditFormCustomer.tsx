@@ -6,6 +6,7 @@ import { updateCustomer } from "../../stores/features/customerSlice";
 import { getAddressByCEP } from 'cep-address-finder';
 import { InputMask } from 'primereact/inputmask';
 import { MDCSnackbar } from "@material/snackbar";
+import { addCustomer } from "../../stores/features/themeSlice";
 
 const EditFormCustomer = ({ customer }: any) => {
     const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ const EditFormCustomer = ({ customer }: any) => {
                 snackbar.actionButtonText = "";
                 snackbar.open();
                 await dispatch(updateCustomer(payload));
+                dispatch(addCustomer());
                 window.scrollTo({ top: 0, behavior: "auto" });
             }}
             initialValues={{

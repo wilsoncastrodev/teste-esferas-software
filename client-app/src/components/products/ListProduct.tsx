@@ -1,7 +1,7 @@
 import { FC, useEffect, useState, Fragment } from "react";
 import { useAppDispatch, useAppSelector, RootState } from "../../stores/store";
-import { getAllCustomer, deleteCustomer } from "../../stores/features/customerSlice";
-import { editCustomer } from "../../stores/features/themeSlice";
+import { getAllProduct, deleteProduct } from "../../stores/features/productSlice";
+import { editProduct } from "../../stores/features/themeSlice";
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { InputText } from 'primereact/inputtext';
@@ -9,11 +9,11 @@ import { MDCSnackbar } from '@material/snackbar';
 import { FilterMatchMode } from 'primereact/api';
 import MediaQuery from 'react-responsive';
 import { Card } from "react-bootstrap";
-import { addCustomer } from "../../stores/features/themeSlice";
+import { addProduct } from "../../stores/features/themeSlice";
 
-const ListCustomer: FC = () => {
-    const isLoading = useAppSelector((state: RootState) => state.customer.isLoading);
-    const customers = useAppSelector((state: RootState) => state.customer.customers);
+const ListProduct: FC = () => {
+    const isLoading = useAppSelector((state: RootState) => state.product.isLoading);
+    const products = useAppSelector((state: RootState) => state.product.products);
     const dispatch = useAppDispatch();
     const [items, setItems] = useState<any>([]);
     const [filters, setFilters] = useState<any>({
@@ -21,31 +21,31 @@ const ListCustomer: FC = () => {
     });
 
     useEffect(() => {
-        dispatch(getAllCustomer());
+        dispatch(getAllProduct());
     }, [isLoading]);
 
     useEffect(() => {
-        setItems(customers);
-    }, [customers]);
+        setItems(products);
+    }, [products]);
 
     const deleteItem = (data: any) => {
         const snackbarButton: any = document.getElementById('mdc-button');
         const mdcSnackbar: any = document.querySelector('.mdc-snackbar');
         const snackbar = new MDCSnackbar(mdcSnackbar);
 
-        const _items = items.filter((customer: any) => customer.id !== data.id);
+        const _items = items.filter((product: any) => product.id !== data.id);
         setItems(_items);
 
         snackbar.timeoutMs = 6000;
-        snackbar.labelText = "Cliente excluído com sucesso";
+        snackbar.labelText = "Produto excluído com sucesso";
         snackbar.actionButtonText = "Desfazer";
         snackbar.open();
 
         snackbarButton.addEventListener('click', () => setItems(items));
         snackbar.listen('MDCSnackbar:closed', (event: CustomEvent<{reason: string}>) => {
             if(event.detail.reason === 'dismiss') {
-                dispatch(deleteCustomer(data.id));
-                dispatch(addCustomer());
+                dispatch(deleteProduct(data.id));
+                dispatch(addProduct());
             }
         });
     }
@@ -53,10 +53,14 @@ const ListCustomer: FC = () => {
     const actionBodyTemplate = (data: any) => {
         return (
             <Fragment>
-                <button onClick={() => dispatch(editCustomer(data))}><i className="fa-regular fa-pen-to-square"></i></button>
+                <button onClick={() => dispatch(editProduct(data))}><i className="fa-regular fa-pen-to-square"></i></button>
                 <button onClick={() => deleteItem(data)}><i className="fa-regular fa-trash-can"></i></button>
             </Fragment>
         );
+    }
+
+    const priceFormatTemplate = (data: any) => {
+        return data.price.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
     }
 
     const onGlobalFilterChange = (event: any) => {
@@ -87,27 +91,28 @@ const ListCustomer: FC = () => {
                     <MediaQuery minWidth={960}>
                         <DataTable value={items} paginator rows={8} header={renderHeader()} filters={filters} responsiveLayout="stack"
                             emptyMessage="Não foi encontrado nenhum resultado">
-                            <Column field="name" header="Nome do Cliente" sortable />
-                            <Column field="cpf" header="CPF" sortable />
-                            <Column field="email" header="E-mail" sortable />
+                            <Column field="code" header="Código do Produto" sortable />
+                            <Column field="name" header="Nome do Produto" sortable />
+                            <Column body={priceFormatTemplate} header="Preço" sortable />
                             <Column header="Ações" body={actionBodyTemplate} exportable={false} style={{ width: '150px' }} />
                         </DataTable>
                     </MediaQuery>
                     <MediaQuery maxWidth={960}>
                         <DataTable value={items} paginator rows={8} header={renderHeader()} filters={filters} responsiveLayout="stack">
-                            <Column field="name" header="Nome do Cliente" sortable />
-                            <Column field="cpf" header="CPF" sortable />
-                            <Column field="email" header="E-mail" sortable />
-                            <Column header="Ações" body={actionBodyTemplate} exportable={false} style={{ width: '150px' }} />
+                            <Column field="code" header="Código do Produto" sortable />
+                            <Column field="name" header="Nome do Produto" sortable />
+                            <Column field="price" header="Preço" sortable />
+                            <Column header="Editar" expander={true} />
+                            <Column header="Excluir" body={actionBodyTemplate} exportable={false} />
                         </DataTable>
                     </MediaQuery>
                 </Fragment>
                  :  <Card className="mt-5">
-                        <Card.Body>Não há nenhum Cliente cadastrado.</Card.Body>
+                        <Card.Body>Não há nenhum Produto cadastrado.</Card.Body>
                     </Card>
             }
         </Fragment>
     )
 };
 
-export default ListCustomer;
+export default ListProduct;

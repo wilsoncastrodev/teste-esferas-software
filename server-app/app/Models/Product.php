@@ -16,13 +16,15 @@ class Product extends Model
         "price",
     ];
 
+    protected $casts = ['price' => 'float'];
+
     public static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
             $id = Product::all()->max('id') + 1;
-            $model->code = 'esferas' . '-' . str_pad($id, 6, '0', STR_PAD_LEFT);
+            $model->code = 'ESFERAS' . str_pad($id, 6, '0', STR_PAD_LEFT);
         });
     }
 }
