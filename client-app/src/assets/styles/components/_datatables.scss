@@ -1,0 +1,131 @@
+.p-datatable {
+    .p-datatable-header {
+        border: none;
+        padding: 0 0 26px;
+        text-align: right;
+
+        input {
+            background: transparent;
+            border-color: #b3c6d7;
+
+            &:focus,
+            &:hover {
+                border-color: $primary;
+            }
+        }
+    }
+
+    .p-datatable-wrapper {
+        border: 2px solid #eaedf1;
+        border-radius: 10px;
+
+        table {
+            thead {
+                tr {
+                    th {
+                        background-color: $white;
+
+                        .p-column-header-content {
+                            padding-bottom: 7px;
+                            padding-top: 7px;
+                        }
+
+                        span {
+                            color: $primary !important;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 0.8rem 1rem;
+                        color: $primary;
+
+                        .p-column-title {
+                            min-width: 135px;
+                        }
+
+                        .fa-trash-can {
+                            color: #e11d48;
+                        }
+                    }
+
+                    &.p-datatable-emptymessage {
+                        td {
+                            border-radius: 10px;
+                            display: table-cell;
+                        }
+                    }
+                }
+            }
+
+            td {
+                > button {
+                    font-size: 1.3rem;
+                    color: $primary;
+                    border: none;
+                    background: none;
+
+                    &:hover {
+                        color: $primary !important;
+                        background: none !important;
+                    }
+                }
+
+                a {
+                    color: $blue-600;
+
+                    i {
+                        font-size: 20px;
+                    }
+
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        color: $blue-600;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-sortable-column {
+        &.p-sortable-column.p-highlight {
+            background: rgb(28 101 137 / 8%);
+
+            &:hover {
+                background: rgb(28 101 137 / 8%) !important;
+            }
+        }
+    }
+
+
+    .p-paginator-bottom {
+        background-color: transparent;
+        border: none;
+
+        .p-highlight {
+            background: #ecf2f4 !important;
+            border-color: #ecf2f4 !important;
+            color: $primary !important;
+        }
+
+        @include media-breakpoint-down(md) {
+            margin: 18px 0;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding-right: 4px;
+            padding-left: 4px;
+
+            .p-paginator-element {
+                min-width: 1.9rem;
+                height: 1.9rem;
+                margin: .1rem;
+                font-size: .9rem;
+            }
+        }
+    }
+}

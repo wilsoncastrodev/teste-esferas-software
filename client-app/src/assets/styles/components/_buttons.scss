@@ -1,0 +1,43 @@
+.btn {
+  font-size: 1.07rem;
+  color: $white;
+  border-radius: 4px;
+
+  &.btn-primary {
+    background: $primary;
+    border: none;
+
+    &:hover {
+      background: darken($primary, 2%);
+    }
+
+    &-alt {
+        background: $primary;
+        border: none;
+        border-radius: 6px;
+        padding: 12px 14px;
+        font-size: 15px;
+
+        &:hover {
+          background: darken($primary, 2%);
+        }
+    }
+  }
+
+  &.btn-light {
+    background: #f3f4f7;
+    color: $primary;
+    font-size: 1rem;
+    border-color: #dcdedf;
+    border-radius: 6px;
+    padding: 8px 12px 9px;
+
+    &:hover {
+      background: darken(#f3f4f7, 2%);
+    }
+  }
+
+  &.btn-block {
+    padding: 11px 20px;
+  }
+}

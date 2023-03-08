@@ -1,0 +1,22 @@
+.card {
+    border: 2px solid #eaedf1;
+    border-radius: 10px;
+    color: $primary;
+
+    &-body {
+        padding: 24px 28px;
+    }
+
+    &-title {
+        margin-bottom: 20px;
+    }
+
+    .btn-light {
+        position: relative;
+        top: -3px;
+    }
+
+    &-alt {
+        margin-top: 75px;
+    }
+}

@@ -13,9 +13,9 @@ class CustomerController extends BaseController
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::orderBy('created_at', 'desc')->get();
 
-        if ($customers) {
+        if (!$customers) {
             return $this->sendError($customers, "Não há nenhum Cliente cadastrado.");
         }
 

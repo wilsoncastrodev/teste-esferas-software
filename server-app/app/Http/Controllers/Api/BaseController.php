@@ -8,7 +8,7 @@ class BaseController extends Controller
 {
     public function sendResponse($result, $message = null)
     {
-        $response['data'] = $result;
+        $response = $result;
 
         if ($message) {
             $response['message'] = $message;

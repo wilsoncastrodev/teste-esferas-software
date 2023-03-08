@@ -28,7 +28,7 @@ class StoreCustomerRequest extends FormRequest
             'cpf' => 'required|string|min:14|unique:customers,cpf',
             'zipcode' => 'required|string|min:9',
             'address' => 'required|string',
-            'number' => 'required|string',
+            'number' => 'required|integer',
             'complement' => 'required|string',
             'neighbourhood' => 'required|string',
             'city' => 'required|string',
