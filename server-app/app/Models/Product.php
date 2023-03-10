@@ -27,4 +27,9 @@ class Product extends Model
             $model->code = 'ESFERAS' . str_pad($id, 6, '0', STR_PAD_LEFT);
         });
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
