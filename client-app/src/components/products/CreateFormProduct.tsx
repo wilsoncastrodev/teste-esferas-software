@@ -14,7 +14,6 @@ const CreateFormProduct: FC = () => {
         <Formik
             validationSchema={productValidation}
             onSubmit={async (payload, { resetForm }) => {
-                console.log(payload)
                 const mdcSnackbar: any = document.querySelector(".mdc-snackbar");
                 const snackbar = new MDCSnackbar(mdcSnackbar);
                 snackbar.timeoutMs = 5000;

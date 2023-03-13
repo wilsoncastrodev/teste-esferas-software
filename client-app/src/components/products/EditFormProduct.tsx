@@ -64,9 +64,6 @@ const EditFormProduct = ({ product }: any) => {
                                 onChange={handleChange}
                                 disabled={true}
                             />
-                            <div className="invalid">
-                                <ErrorMessage name="address" />
-                            </div>
                         </Form.Group>
                         <Form.Group
                             as={Col}

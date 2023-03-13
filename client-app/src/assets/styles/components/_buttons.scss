@@ -1,43 +1,93 @@
 .btn {
-  font-size: 1.07rem;
-  color: $white;
-  border-radius: 4px;
+    font-size: 1.07rem;
+    color: $white;
+    border-radius: 4px;
 
-  &.btn-primary {
-    background: $primary;
-    border: none;
-
-    &:hover {
-      background: darken($primary, 2%);
-    }
-
-    &-alt {
+    &.btn-primary {
         background: $primary;
         border: none;
-        border-radius: 6px;
-        padding: 12px 14px;
-        font-size: 15px;
 
         &:hover {
-          background: darken($primary, 2%);
+            background: darken($primary, 2%);
+        }
+
+        &-alt {
+            background: $primary;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 14px;
+            font-size: 0.9375rem;
+
+            &:hover {
+                background: darken($primary, 2%);
+            }
         }
     }
-  }
 
-  &.btn-light {
-    background: #f3f4f7;
-    color: $primary;
-    font-size: 1rem;
-    border-color: #dcdedf;
-    border-radius: 6px;
-    padding: 8px 12px 9px;
+    &.btn-light {
+        background: #f3f4f7;
+        color: $primary;
+        font-size: 1rem;
+        border-color: #dcdedf;
+        border-radius: 6px;
+        padding: 8px 12px 9px;
 
-    &:hover {
-      background: darken(#f3f4f7, 2%);
+        &:hover {
+            background: darken(#f3f4f7, 2%);
+        }
     }
-  }
 
-  &.btn-block {
-    padding: 11px 20px;
-  }
+    &.btn-success {
+        background: $green;
+        border: none;
+        border-radius: 6px;
+        padding: 14px 18px;
+        font-size: 0.9375rem;
+
+        &:hover {
+            background: darken($green, 2%);
+        }
+    }
+
+    &.btn-outline-primary {
+        border: 2px solid $primary !important;
+        font-size: 1rem !important;
+        padding: 7px 13px 10px;
+        width: 96px;
+
+        &:hover {
+            background-color: $primary;
+            color: $white;
+        }
+    }
+
+    &.btn-outline-danger {
+        border: 2px solid $red !important;
+        font-size: 1rem !important;
+        padding: 7px 13px 10px;
+        color: $red !important;
+        width: 96px;
+
+        &:hover {
+            background-color: $red;
+            color: $white !important;
+        }
+    }
+
+    &.btn-outline-light {
+        border: 2px solid $white;
+        font-size: 1rem;
+        padding: 10px 26px 10.5px;
+        color: $white;
+        border-radius: 6px;
+
+        &:hover {
+            background-color: $white;
+            color: $primary;
+        }
+    }
+
+    &.btn-block {
+        padding: 11px 20px;
+    }
 }

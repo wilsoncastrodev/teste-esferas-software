@@ -7,7 +7,8 @@ import NotFoundPage from '../pages/errors/NotFound';
 
 import CustomerPage from '../pages/dashboard/Customer';
 import ProductPage from '../pages/dashboard/Product';
-import OrderPage from '../pages/dashboard/Order';
+import OrderPage from '../pages/dashboard/order/Order';
+import CreateOrderPage from '../pages/dashboard/order/CreateOrder';
 
 const Router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const Router = createBrowserRouter([
             {
                 path: "pedidos",
                 element: <OrderPage />,
+            },
+            {
+                path: "pedidos/criar",
+                element: <CreateOrderPage />,
             },
         ]
     },

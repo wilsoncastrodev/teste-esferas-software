@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button, Row, Col, Form } from "react-bootstrap";
 import { ErrorMessage, Formik } from "formik";
 import { useAppDispatch } from "../../stores/store";
@@ -21,9 +21,12 @@ const CreateFormCustomer: FC = () => {
         }
     }
 
+    const [validateAfterSubmit, setValidateAfterSubmit] = useState<any>(false);
+
     return (
         <Formik
             validationSchema={addCustomerValidation}
+            validateOnChange={validateAfterSubmit}
             onSubmit={async (payload, { resetForm }) => {
                 const mdcSnackbar: any = document.querySelector(".mdc-snackbar");
                 const snackbar = new MDCSnackbar(mdcSnackbar);
@@ -359,7 +362,10 @@ const CreateFormCustomer: FC = () => {
                         </Form.Group>
                     </Row>
                     <div className="text-end">
-                        <Button type="submit" className="btn btn-primary btn-primary-alt">
+                        <Button type="submit" onClick={() => {
+                            setValidateAfterSubmit(true);
+                        }}
+                        className="btn btn-primary btn-primary-alt">
                             Salvar
                         </Button>
                     </div>

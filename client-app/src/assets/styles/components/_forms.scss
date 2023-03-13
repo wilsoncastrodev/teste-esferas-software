@@ -85,6 +85,14 @@ form {
             min-height: 120px;
         }
 
+        .p-inputnumber {
+            &.inputdiscount {
+                .p-inputtext {
+                    width: 124px;
+                }
+            }
+        }
+
         .p-dropdown {
             border-color: $primary;
             width: 100%;
@@ -92,7 +100,11 @@ form {
 
             &-label {
                 font-family: $font-family-base;
-                padding-top: 14px;
+                padding-top: 16px;
+            }
+
+            .p-inputtext {
+                height: 52px;
             }
 
             &:focus,

@@ -93,7 +93,7 @@ const ListProduct: FC = () => {
                             emptyMessage="Não foi encontrado nenhum resultado">
                             <Column field="code" header="Código do Produto" sortable />
                             <Column field="name" header="Nome do Produto" sortable />
-                            <Column body={priceFormatTemplate} header="Preço" sortable />
+                            <Column body={priceFormatTemplate} field="price" header="Preço" sortable />
                             <Column header="Ações" body={actionBodyTemplate} exportable={false} style={{ width: '150px' }} />
                         </DataTable>
                     </MediaQuery>
@@ -101,7 +101,7 @@ const ListProduct: FC = () => {
                         <DataTable value={items} paginator rows={8} header={renderHeader()} filters={filters} responsiveLayout="stack">
                             <Column field="code" header="Código do Produto" sortable />
                             <Column field="name" header="Nome do Produto" sortable />
-                            <Column field="price" header="Preço" sortable />
+                            <Column body={priceFormatTemplate} field="price" header="Preço" sortable />
                             <Column header="Editar" expander={true} />
                             <Column header="Excluir" body={actionBodyTemplate} exportable={false} />
                         </DataTable>

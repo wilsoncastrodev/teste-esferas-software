@@ -50,6 +50,36 @@
                         .fa-trash-can {
                             color: #e11d48;
                         }
+
+                        .p-inputnumber {
+                            .p-inputtext {
+                                width: 44px;
+                            }
+
+
+                            &.p-inputwrapper {
+                                height: 42px;
+
+                                .p-inputtext {
+                                    width: 42px;
+                                    text-align: center;
+                                    border-color: #d0dce7;
+                                    font-size: 0.875rem;
+                                    padding: 6px;
+                                    color: $primary;
+                                }
+
+                                .p-inputnumber-button {
+                                    background-color: $primary;
+                                    border: none;
+                                    width: 2.7rem;
+
+                                    span {
+                                        font-size: 0.75rem;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     &.p-datatable-emptymessage {
@@ -67,11 +97,6 @@
                     color: $primary;
                     border: none;
                     background: none;
-
-                    &:hover {
-                        color: $primary !important;
-                        background: none !important;
-                    }
                 }
 
                 a {
