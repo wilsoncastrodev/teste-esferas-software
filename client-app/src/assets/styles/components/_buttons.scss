@@ -6,6 +6,9 @@
     &.btn-primary {
         background: $primary;
         border: none;
+        padding: 10px 21px 13.5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
 
         &:hover {
             background: darken($primary, 2%);

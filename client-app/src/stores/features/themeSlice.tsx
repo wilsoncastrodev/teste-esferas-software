@@ -9,12 +9,16 @@ export const addCustomer = createAsyncThunk("customer/addCustomer", async () => 
     return true;
 });
 
-export const editProduct = createAsyncThunk("customer/editProduct", async (payload: any) => {
+export const editProduct = createAsyncThunk("product/editProduct", async (payload: any) => {
     return payload;
 });
 
-export const addProduct = createAsyncThunk("customer/addProduct", async () => {
+export const addProduct = createAsyncThunk("product/addProduct", async () => {
     return true;
+});
+
+export const showOrder = createAsyncThunk("order/showOrder", async (payload: any) => {
+    return payload;
 });
 
 const initialState: ThemeStateType = {
@@ -54,6 +58,9 @@ export const themeSlice = createSlice({
         builder.addCase(addProduct.fulfilled, (state, action) => {
             state.data = action.payload;
             state.isEdit = false;
+        });
+        builder.addCase(showOrder.fulfilled, (state, action) => {
+            state.data = action.payload;
         });
     },
 });
