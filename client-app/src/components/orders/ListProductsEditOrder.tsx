@@ -1,7 +1,7 @@
-import { FC, useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useAppDispatch, useAppSelector, RootState } from "../../stores/store";
 import { getAllProduct } from "../../stores/features/productSlice";
-import { addOrderItem, removeOrderItem, updateQuantity } from "../../stores/features/orderItemSlice";
+import { addOrderItem, removeAllOrderItems, removeOrderItem, updateQuantity } from "../../stores/features/orderItemSlice";
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { InputText } from 'primereact/inputtext';
@@ -11,7 +11,7 @@ import { Button, Card } from "react-bootstrap";
 import { InputNumber } from "primereact/inputnumber";
 import Dialogproduct from "../products/DialogProduct";
 
-const ListProduct: FC = () => {
+const ListProduct = ({ itemsRegistered }: any) => {
     const isLoading = useAppSelector((state: RootState) => state.product.isLoading);
     const products = useAppSelector((state: RootState) => state.product.products);
     const order = useAppSelector((state: RootState) => state.orderItem);
@@ -26,8 +26,29 @@ const ListProduct: FC = () => {
     }, [isLoading]);
 
     useEffect(() => {
-        if (products) setItems(products.map((product: any) => ({ ...product, quantity: 1, action: false })));
+        if (products) {
+            setItems(products.map((product: any) => {
+                const _item = itemsRegistered.find((item: any)=> item.product_id === product.id)
+
+                if(_item) {
+                    return {...product, price: _item.price, quantity: _item.quantity, action: true}
+                }
+
+                return {...product, quantity: 1, action: false};
+            }));
+        }
     }, [products]);
+
+    useEffect(() => {
+        dispatch(removeAllOrderItems());
+        itemsRegistered.forEach((item: any) => {
+            addItem({
+                id: item.product_id,
+                quantity: item.quantity,
+                price: item.price,
+            });
+        });
+    }, [dispatch]);
 
     const quantityTemplate = (data: any) => {
         return <InputNumber value={data.quantity}
@@ -112,8 +133,8 @@ const ListProduct: FC = () => {
                                 <Column field="code" header="Código" sortable />
                                 <Column field="name" body={productTemplate} header="Produto" sortable />
                                 <Column field="price" body={priceFormatTemplate} header="Preço" sortable />
-                                <Column header="Quantidade" field="quantity" body={quantityTemplate} exportable={false} style={{ width: '150px' }} sortable/>
-                                <Column header="Ação" field="action" body={addOrderItemTemplate} style={{ width: '150px' }} sortable/>
+                                <Column header="Quantidade" field="quantity" body={quantityTemplate} exportable={false} sortable/>
+                                <Column header="Ação" field="action" body={addOrderItemTemplate} sortable/>
                             </DataTable>
                         </MediaQuery>
                         <MediaQuery maxWidth={960}>
@@ -121,7 +142,7 @@ const ListProduct: FC = () => {
                                 <Column field="code" header="Código" sortable />
                                 <Column field="name" body={productTemplate} header="Produto" sortable />
                                 <Column field="price" body={priceFormatTemplate} header="Preço" sortable />
-                                <Column header="Quantidade" field="quantity" body={quantityTemplate} exportable={false} style={{ width: '150px' }} sortable/>
+                                <Column header="Quantidade" field="quantity" body={quantityTemplate} exportable={false} sortable/>
                                 <Column header="Editar" expander={true} />
                                 <Column header="Excluir" body={quantityTemplate} />
                             </DataTable>

@@ -9,6 +9,7 @@ import CustomerPage from '../pages/dashboard/Customer';
 import ProductPage from '../pages/dashboard/Product';
 import OrderPage from '../pages/dashboard/order/Order';
 import CreateOrderPage from '../pages/dashboard/order/CreateOrder';
+import EditOrderPage from '../pages/dashboard/order/EditOrder';
 
 const Router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const Router = createBrowserRouter([
             {
                 path: "pedidos/criar",
                 element: <CreateOrderPage />,
+            },
+            {
+                path: "pedidos/editar/:orderId",
+                element: <EditOrderPage />,
             },
         ]
     },

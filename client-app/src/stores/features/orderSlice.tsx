@@ -3,6 +3,17 @@ import { OrderRequestType, OrderStateType } from "../../types/orderType";
 import { axiosErrorHandler } from "../../utils/errors";
 import OrderService from "../../services/orderService";
 
+export const getOrderById = createAsyncThunk("order/getOrderById", async ($id: number, { rejectWithValue }) => {
+    try {
+        const response = await OrderService.getOrderById($id);
+        return response.data;
+    } catch (err) {
+            const error = axiosErrorHandler(err);
+            return rejectWithValue(error);
+        }
+    }
+);
+
 export const getAllOrder = createAsyncThunk("order/getAllOrder", async (_, { rejectWithValue }) => {
     try {
         const response = await OrderService.getAllOrder();
@@ -17,6 +28,16 @@ export const getAllOrder = createAsyncThunk("order/getAllOrder", async (_, { rej
 export const createOrder = createAsyncThunk("order/createOrder", async (payload: OrderRequestType, { rejectWithValue }) => {
     try {
         const response = await OrderService.createOrder(payload);
+        return response.data;
+    } catch (err) {
+        const error = axiosErrorHandler(err)
+        return rejectWithValue(error);
+    }
+});
+
+export const updateOrder = createAsyncThunk("order/updateOrder", async (payload: OrderRequestType, { rejectWithValue }) => {
+    try {
+        const response = await OrderService.updateOrder(payload);
         return response.data;
     } catch (err) {
         const error = axiosErrorHandler(err)
@@ -45,6 +66,16 @@ export const orderSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(getOrderById.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getOrderById.fulfilled, (state, action) => {
+            state.orders = action.payload;
+            state.errors = null;
+        });
+        builder.addCase(getOrderById.rejected, (state, action) => {
+            state.errors = action.payload;
+        });
         builder.addCase(getAllOrder.pending, (state) => {
             state.isLoading = true;
         });
@@ -64,6 +95,17 @@ export const orderSlice = createSlice({
             state.errors = null;
         });
         builder.addCase(createOrder.rejected, (state, action) => {
+            state.errors = action.payload;
+        });
+        builder.addCase(updateOrder.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(updateOrder.fulfilled, (state, action) => {
+            state.orders = action.payload;
+            state.isLoading = false;
+            state.errors = null;
+        });
+        builder.addCase(updateOrder.rejected, (state, action) => {
             state.errors = action.payload;
         });
         builder.addCase(deleteOrder.pending, (state) => {

@@ -1,9 +1,9 @@
-import { FC, Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Button, Row, Col, Form } from "react-bootstrap";
 import { ErrorMessage, Field, Formik } from "formik";
 import { useAppDispatch, useAppSelector, RootState } from "../../stores/store";
 import { getAllCustomer } from "../../stores/features/customerSlice";
-import { createOrder } from "../../stores/features/orderSlice";
+import { updateOrder } from "../../stores/features/orderSlice";
 import { MDCSnackbar } from "@material/snackbar";
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
@@ -12,9 +12,10 @@ import Inputmask from "inputmask";
 import { orderValidation } from "../../validations/orderValidation";
 import { useNavigate } from 'react-router-dom';
 import { removeAllOrderItems } from "../../stores/features/orderItemSlice";
+import moment from 'moment';
 import DialogCustomer from "../customers/DialogCustomer";
 
-const CreateFormProduct: FC = () => {
+const EditFormProduct = ({ order }: any) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -23,8 +24,8 @@ const CreateFormProduct: FC = () => {
 
     const [quantity, setQuatity] = useState<any>(0);
     const [subtotal, setSubtotal] = useState<any>(0);
-    const [isDiscount, setIsDiscount] = useState<any>(false);
-    const [customer, setCustomer] = useState<any>(null);
+    const [isDiscount, setIsDiscount] = useState<any>(order.discount);
+    const [customer, setCustomer] = useState<any>(order.customer);
     const [customersSelect, setCustomersSelect] = useState<any>([]);
 
     useEffect(() => {
@@ -88,7 +89,7 @@ const CreateFormProduct: FC = () => {
     return (
         <Card className="card-alt">
             <Card.Body>
-                <Card.Title className="mb-3">Cliente</Card.Title>
+                <Card.Title className="mb-3">Pedido Nº {order.id}</Card.Title>
                 <Formik
                     validationSchema={orderValidation}
                     validateOnChange={validateAfterSubmit}
@@ -96,20 +97,22 @@ const CreateFormProduct: FC = () => {
                         const mdcSnackbar: any = document.querySelector(".mdc-snackbar");
                         const snackbar = new MDCSnackbar(mdcSnackbar);
                         snackbar.timeoutMs = 5000;
-                        snackbar.labelText = "Pedido criado com sucesso";
+                        snackbar.labelText = "Pedido atualizado com sucesso";
                         snackbar.actionButtonText = "";
                         snackbar.open();
 
-                        await dispatch(createOrder(payload));
+                        await dispatch(updateOrder(payload));
                         await dispatch(removeAllOrderItems());
                         resetForm();
                         window.scrollTo({ top: 0, behavior: "auto" });
                         navigate('../pedidos');
                     }}
                     initialValues={{
+                        id: order.id,
                         products: null,
-                        customer_id: 0,
-                        discount: 0,
+                        customer_id: order.customer_id,
+                        discount: order.discount,
+                        status: order.status,
                         subtotal: 0
                     }}
                 >
@@ -122,11 +125,11 @@ const CreateFormProduct: FC = () => {
                                 controlId="customer_id"
                                 onFocus={() => handleMask()}
                             >
-
+                                <Form.Label>Cliente</Form.Label>
                                 <Field name="customer_id">
                                     {({ field }: any) => (
                                         <Dropdown
-                                        {...field}
+                                            {...field}
                                             name="customer_id"
                                             placeholder="Digite o CPF ou escolha um Cliente"
                                             value={values.customer_id}
@@ -161,6 +164,48 @@ const CreateFormProduct: FC = () => {
                                     </div> : null
                                 }
                             </Form.Group>
+                            <Form.Group
+                                as={Col}
+                                md="12"
+                                className="mt-2 mb-2"
+                                controlId="status"
+                            >
+                                <Form.Label>Status</Form.Label>
+                                <div>
+                                    <Field name="status">
+                                        {({ field }: any) => (
+                                            <Dropdown
+                                                {...field}
+                                                name="status"
+                                                placeholder="Escolha uma opção:"
+                                                value={values.status}
+                                                onChange={handleChange}
+                                                options={[
+                                                    "Aberto",
+                                                    "Pago",
+                                                    "Cancelado"
+                                                ]}
+                                                className={
+                                                    validateAfterSubmit ?
+                                                    !!(
+                                                        touched.status &&
+                                                        errors.status
+                                                    )
+                                                        ? "is-invalid"
+                                                        : touched.status
+                                                            ? "is-valid"
+                                                            : "" : ""
+                                                }
+                                            />
+                                        )}
+                                    </Field>
+                                    {
+                                        validateAfterSubmit ? <div className="invalid">
+                                            <ErrorMessage name="status" />
+                                        </div> : null
+                                    }
+                                </div>
+                            </Form.Group>
                             <Card.Title className="mt-4">Resumo do Pedido</Card.Title>
                             {
                                 quantity ?
@@ -172,6 +217,22 @@ const CreateFormProduct: FC = () => {
                                                 </Col>
                                                 <Col className="text-end">
                                                     {customer ? <DialogCustomer customer={customer}/> : null}
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col>
+                                                    Status
+                                                </Col>
+                                                <Col className="text-end">
+                                                    {values.status}
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col>
+                                                    Data do Pedido
+                                                </Col>
+                                                <Col className="text-end">
+                                                    {moment(order.created_at).format("DD/MM/YYYY")}
                                                 </Col>
                                             </Row>
                                             <Row className="mb-3">
@@ -270,12 +331,12 @@ const CreateFormProduct: FC = () => {
                                             </Row>
                                             <div className="text-end">
                                                 <Button type="submit" onClick={() => {
-                                                        setFieldValue("subtotal", subtotal)
-                                                        setValidateAfterSubmit(true);
-                                                        setFieldValue("products", products)
-                                                    }}
+                                                    setFieldValue("subtotal", subtotal)
+                                                    setValidateAfterSubmit(true);
+                                                    setFieldValue("products", products)
+                                                }}
                                                     className="btn btn-primary btn-success">
-                                                    Finalizar Pedido
+                                                    Atualizar Pedido
                                                 </Button>
                                             </div>
                                         </Fragment>
@@ -291,4 +352,4 @@ const CreateFormProduct: FC = () => {
     );
 };
 
-export default CreateFormProduct;
+export default EditFormProduct;
