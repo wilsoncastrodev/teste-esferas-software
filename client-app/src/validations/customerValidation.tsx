@@ -2,13 +2,16 @@ import * as Yup from "yup";
 import { api } from '../config/api';
 import { cpf } from 'cpf-cnpj-validator';
 import { getAddressByCEP } from 'cep-address-finder';
+import validator from 'validator';
 
 export const addCustomerValidation: any = Yup.object().shape({
     name: Yup.string()
         .required("O campo Nome do Cliente é obrigatório"),
     email: Yup.string().test("email-validate", "O E-mail informado já cadastrado", async (value: any, options: any) => {
         try {
-            await api.post(`customers`, { email: value });
+            if (validator.isEmail(value)) {
+                await api.post(`customers`, { email: value });
+            }
             return true;
         } catch (e: any) {
             return !e.response.data.errors.email ? true : false;
@@ -20,7 +23,9 @@ export const addCustomerValidation: any = Yup.object().shape({
     }).required("O campo Telefone é obrigatório"),
     cpf: Yup.string().test("cpf-validate", "O CPF informado já cadastrado", async (value: any) => {
         try {
-            await api.post(`customers`, { cpf: value });
+            if (cpf.isValid(value)) {
+                await api.post(`customers`, { cpf: value });
+            }
             return true;
         } catch (e: any) {
             return !e.response.data.errors.cpf ? true : false;
@@ -47,7 +52,9 @@ export const updateCustomerValidation = Yup.object().shape({
         .required("O campo Nome do Cliente é obrigatório"),
     email: Yup.string().test("email-validate", "O E-mail informado já cadastrado", async (value: any, options: any) => {
         try {
-            await api.patch(`customers/${options.from[0].value.id}`, { email: value });
+            if (validator.isEmail(value)) {
+                await api.patch(`customers/${options.from[0].value.id}`, { email: value });
+            }
             return true;
         } catch (e: any) {
             return !e.response.data.errors.email ? true : false;
@@ -59,7 +66,10 @@ export const updateCustomerValidation = Yup.object().shape({
     }).required("O campo Telefone é obrigatório"),
     cpf: Yup.string().test("cpf-validate", "O CPF informado já cadastrado", async (value: any, options: any) => {
         try {
-            await api.patch(`customers/${options.from[0].value.id}`, { cpf: value });
+            if (cpf.isValid(value)) {
+                console.log(value);
+                await api.patch(`customers/${options.from[0].value.id}`, { cpf: value });
+            }
             return true;
         } catch (e: any) {
             return !e.response.data.errors.cpf ? true : false;

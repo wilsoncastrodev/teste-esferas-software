@@ -13,7 +13,7 @@ class OrderController extends BaseController
      */
     public function index()
     {
-        $orders = Order::with('items', 'customer')->orderBy('created_at', 'desc')->get();
+        $orders = Order::with('items', 'items.product', 'customer')->orderBy('created_at', 'desc')->get();
 
         if (!$orders) {
             return $this->sendError($orders, "Não há nenhum Pedido cadastrado.");
