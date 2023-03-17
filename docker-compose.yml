@@ -1,7 +1,18 @@
 version: "3.9"
 services:
+  client-app:
+    container_name: "esferas-client-app"
+    image: nginx:latest
+    restart: always
+    working_dir: /var/www/app
+    volumes:
+      - ./client-app:/var/www/app
+      - ./client-app/nginx:/etc/nginx/conf.d
+    ports:
+      - "5500:5500"
+
   server-app:
-    container_name: "server-app"
+    container_name: "esferas-server-app"
     image: nginx:latest
     restart: always
     working_dir: /var/www/app
@@ -17,19 +28,11 @@ services:
     ports:
       - "5000:5000"
 
-  client-app:
-    container_name: "client-app"
-    image: nginx:latest
-    restart: always
-    volumes:
-      - ./client-app/build:/usr/share/nginx/html
-      - ./client-app/nginx:/etc/nginx/conf.d
-    ports:
-      - "5500:5500"
-
   php:
-    container_name: "server-app-php"
-    build: .
+    container_name: "esferas-server-app-php"
+    build: 
+      context: server-app
+      dockerfile: Dockerfile
     restart: always
     working_dir: /var/www/app
     volumes:
@@ -38,7 +41,7 @@ services:
       - postgres
 
   postgres:
-    container_name: "server-app-postgres"
+    container_name: "esferas-server-app-postgres"
     image: postgres:15
     restart: always
     volumes:
@@ -52,7 +55,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: "server-app-pgadmin4"
+    container_name: "esferas-server-app-pgadmin4"
     ports:
       - "5050:80"
     depends_on:
@@ -62,11 +65,5 @@ services:
       PGADMIN_DEFAULT_PASSWORD: wilsoncastro123
 
 # Comando para entrar no container server-app-php
-# docker exec -it server-app-php bash
-# Comando para executar dentro do container server-app-php
-# rm -rf node_modules
-# npm install
-# npm start
-
-# Comando para entrar no container client-app
-# docker exec -it client-app bash
+# docker exec -it esferas-server-app-php bash
+# docker exec -it esferas-server-app-php bash ../server-init.sh

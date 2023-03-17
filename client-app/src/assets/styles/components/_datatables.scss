@@ -80,6 +80,10 @@
                                 }
                             }
                         }
+
+                        @include media-breakpoint-down(lg) {
+                            width: auto !important;
+                        }
                     }
 
                     &.p-datatable-emptymessage {
@@ -97,6 +101,15 @@
                     color: $primary;
                     border: none;
                     background: none;
+                }
+
+                div {
+                    > button {
+                        font-size: 1.3rem;
+                        color: $primary;
+                        border: none;
+                        background: none;
+                    }
                 }
 
                 a {

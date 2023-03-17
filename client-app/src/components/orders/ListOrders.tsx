@@ -57,11 +57,11 @@ const ListOrder: FC = () => {
 
     const actionBodyTemplate = (data: any) => {
         return (
-            <Fragment>
+            <div>
                 <button onClick={() => dispatch(showOrder(data))}><i className="fa-solid fa-eye"></i></button>
                 <button onClick={() => navigate(`editar/${data.id}`)}><i className="fa-regular fa-pen-to-square"></i></button>
                 <button onClick={() => deleteItem(data)}><i className="fa-regular fa-trash-can"></i></button>
-            </Fragment>
+            </div>
         );
     }
 
@@ -90,7 +90,7 @@ const ListOrder: FC = () => {
         const value = filters['global'] ? filters['global'].value : '';
 
         return (
-            <div className="text-start">
+            <div className="text-start d-sm-flex justify-content-sm-between">
                 <Link className="btn btn-primary me-3" to="criar">
                     Criar Pedido
                 </Link>

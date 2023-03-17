@@ -67,7 +67,6 @@ export const updateCustomerValidation = Yup.object().shape({
     cpf: Yup.string().test("cpf-validate", "O CPF informado já cadastrado", async (value: any, options: any) => {
         try {
             if (cpf.isValid(value)) {
-                console.log(value);
                 await api.patch(`customers/${options.from[0].value.id}`, { cpf: value });
             }
             return true;

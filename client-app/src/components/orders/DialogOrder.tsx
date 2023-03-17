@@ -9,8 +9,6 @@ import moment from "moment";
 const DialogCustomer = ({ order }: any) => {
     const [visible, setVisible] = useState<boolean>(false);
 
-    console.log(order)
-
     const footerContent = (
         <div>
             <Button label="Fechar" className="btn btn-primary" onClick={() => setVisible(false)} autoFocus />
@@ -36,7 +34,14 @@ const DialogCustomer = ({ order }: any) => {
                 </a>
             </div>
 
-            <Dialog header={"Detalhes do Pedido | Pedido Nº " + order.id} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+            <Dialog
+                header={"Detalhes do Pedido | Pedido Nº " + order.id}
+                visible={visible}
+                style={{ width: '50vw' }}
+                onHide={() => setVisible(false)}
+                footer={footerContent}
+                breakpoints={{ '960px': '75vw', '641px': '100vw' }}
+            >
                 <h5>Informações do Pedido</h5>
                 <Row className="mb-4 mt-3">
                     <Col>

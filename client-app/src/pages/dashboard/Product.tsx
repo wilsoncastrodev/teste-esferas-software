@@ -7,10 +7,10 @@ const ProductPage: FC = () => (
     <Fragment>
         <h3>Produtos</h3>
         <Row className="mt-4">
-            <Col md={12} lg={5} xl={4}>
+            <Col md={12} lg={5} xl={4} className="order-last order-lg-first">
                 <FormProduct />
             </Col>
-            <Col md={12} lg={7} xl={8}>
+            <Col md={12} lg={7} xl={8} className="order-first order-lg-last">
                 <ListProduct />
             </Col>
         </Row>

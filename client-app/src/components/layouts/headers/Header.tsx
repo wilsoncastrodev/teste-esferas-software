@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Header: FC = () => (
@@ -7,15 +7,14 @@ const Header: FC = () => (
         <Container>
             <Row>
                 <Col sm={4}>
-                    <h1 className="header-logo text-white">
+                    <h1 className="header-logo text-white text-center text-sm-start">
                         <Link className="text-white" to="/">
                             Esferas
                         </Link>
                     </h1>
                 </Col>
-
                 <Col sm={4}>
-                    <div className="menu-page d-lg-flex text-end h-100">
+                    <div className="menu-page d-lg-flex text-end h-100 justify-content-center">
                         <ListGroup horizontal>
                             <ListGroup.Item>
                                 <Link className="text-white" to="clientes">
@@ -35,7 +34,7 @@ const Header: FC = () => (
                         </ListGroup>
                     </div>
                 </Col>
-                <Col sm={4} className="align-self-md-center">
+                <Col sm={4} className="align-self-md-center d-none d-lg-block">
                     <div className="text-end">
                         <Link className="btn btn-outline-light" to="pedidos/criar">
                             Criar Pedido

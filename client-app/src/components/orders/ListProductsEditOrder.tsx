@@ -143,8 +143,7 @@ const ListProduct = ({ itemsRegistered }: any) => {
                                 <Column field="name" body={productTemplate} header="Produto" sortable />
                                 <Column field="price" body={priceFormatTemplate} header="Preço" sortable />
                                 <Column header="Quantidade" field="quantity" body={quantityTemplate} exportable={false} sortable/>
-                                <Column header="Editar" expander={true} />
-                                <Column header="Excluir" body={quantityTemplate} />
+                                <Column header="Ação" field="action" body={addOrderItemTemplate} sortable/>
                             </DataTable>
                         </MediaQuery>
                     </Fragment>

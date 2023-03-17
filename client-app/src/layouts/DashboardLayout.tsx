@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/layouts/headers/Header";
 import { Container } from "react-bootstrap";
 import Snackbar from "../components/snackbars/Snackbar";
+import SnackbarError from "../components/snackbars/SnackbarError";
 
 export const DashboardLayout: FC = () => {
     return (
@@ -14,6 +15,7 @@ export const DashboardLayout: FC = () => {
                 </Container>
             </main>
             <Snackbar />
+            <SnackbarError />
         </Fragment>
     );
 };

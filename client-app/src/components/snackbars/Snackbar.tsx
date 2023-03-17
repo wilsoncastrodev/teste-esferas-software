@@ -1,5 +1,5 @@
 const Snackbar = () => (
-    <aside className="mdc-snackbar">
+    <aside className="mdc-snackbar mdc-snackbar-info">
         <div
             className="mdc-snackbar__surface"
             role="status"

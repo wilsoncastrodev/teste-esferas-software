@@ -1,4 +1,5 @@
-.mdc-snackbar {
+.mdc-snackbar,
+.mdc-snackbar-error {
     &__surface {
         background-color: $primary;
         border-radius: 6px;

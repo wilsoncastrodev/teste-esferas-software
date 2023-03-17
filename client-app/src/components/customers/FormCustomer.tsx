@@ -14,16 +14,18 @@ const FormCustomer: FC = () => {
     return (
         <Card className="card-alt">
             <Card.Body>
-                { !isEdit ? <Fragment>
-                    <Card.Title>Adicionar Cliente</Card.Title>
-                    <CreateFormCustomer />
-                </Fragment> : <Fragment>
-                    <div className="h-100 d-flex flex-row justify-content-between">
-                        <Card.Title>Editar Cliente</Card.Title>
-                        <Button variant="light" onClick={() => dispatch(addCustomer())}>Adicionar</Button>
-                    </div>
-                    <EditFormCustomer customer={customer} />
-                </Fragment> }
+                {!isEdit ?
+                    <Fragment>
+                        <Card.Title>Adicionar Cliente</Card.Title>
+                        <CreateFormCustomer />
+                    </Fragment> :
+                    <Fragment>
+                        <div className="h-100 d-flex flex-row justify-content-between">
+                            <Card.Title>Editar Cliente</Card.Title>
+                            <Button variant="light" onClick={() => dispatch(addCustomer())}>Adicionar</Button>
+                        </div>
+                        <EditFormCustomer customer={customer} />
+                    </Fragment>}
             </Card.Body>
         </Card>
     );
